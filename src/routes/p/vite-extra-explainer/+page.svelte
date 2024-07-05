@@ -11,19 +11,21 @@
   const file_highlights = [a_steps, b_steps, c_steps];
 </script>
 
-<button onclick={() => step--} class="bg-white px-2 py-1 rounded-lg">Decrease</button>
-<button onclick={() => step++} class="bg-white px-2 py-1 rounded-lg">Increase</button>
+<button onclick={() => {if (step - 1 > -1) step--}} class="bg-white px-2 py-1 rounded-lg">Decrease</button>
+<button onclick={() => {if (step + 1 < a_steps.length) step++}} class="bg-white px-2 py-1 rounded-lg">Increase</button>
 <p>Step: {step}</p>
 
-<code class="whitespace-pre-wrap">
-  {#each Object.keys(files) as file, i}
-    <p>{file}</p>
-    <div class="bg-black text-white">
-      <Trace {step} highlights={file_highlights[i]}> 
-        {#each files[file] as line}
-          <TLine class="bg-red-400">{line}</TLine>
+{#each files as file: { title: string, content: string[] }, i}
+  <article class="bg-slate-800 px-4 py-2 rounded-lg m-4">
+    <h3>{file.title}</h3>
+    <code class="whitespace-pre-wrap">
+      <Trace {step} highlights={file_highlights[i]}>
+        {#each file.content as line}
+          <TLine>
+            <p class="text-white">{line}</p>
+          </TLine> 
         {/each}
       </Trace>
-    </div>
-  {/each}
-</code>
+    </code>
+  </article>
+{/each}

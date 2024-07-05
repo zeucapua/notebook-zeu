@@ -1,5 +1,7 @@
-export const file_code = {
-  "./server.js": `
+export const files = [
+  { 
+    title: "./server.js",
+    content: `
     const app = express();
     let vite;
 
@@ -8,26 +10,28 @@ export const file_code = {
     app.listen(port, () => {
       console.log('Server started at http://localhost:3000');
     });
-  `,
-  "./src/entry-server.ts": `
+    `.split("\n"),
+  },
+  {
+    title: "./src/entry-server.ts",
+    content: `
     import App from "./App.svelte";
     
     export function render() {
       return App.render();
     }
-  `,
-  "./src/entry-client.ts": `
+    `.split("\n"),
+  },
+  {
+    title: "./src/entry-client.ts",
+    content: `
     import App from "./App.svelte";
 
     new App({
     target: document.getElementById("app"),
       hydratable: true
     });
-  `,
-};
+    `.split("\n"),
+  }
+];
 
-export const files: Record<string, string[]> = {
-  "./server.js": file_code["./server.js"].split("\n"),
-  "./src/entry-server.ts": file_code["./src/entry-server.ts"].split("\n"),
-  "./src/entry-client.ts": file_code["./src/entry-client.ts"].split("\n")
-}; 
